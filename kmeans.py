@@ -50,8 +50,9 @@ class KMeansClustering:
 		for i in range(self.clustersize):
 			datapoints.append(np.array([val[0] for key,val in self.clustered_data.items() if val[1]==i]))
 		for l,each in enumerate(datapoints):
-			plt.scatter(each[:,0],each[:,1],color=colors[l])
-		plt.scatter(self.centiroid[:,0],self.centiroid[:,1],color=colors[3])
+			plt.scatter(each[:,0],each[:,1],color=colors[l],label="Class{}".format(l+1))
+		plt.scatter(self.centiroid[:,0],self.centiroid[:,1],color=colors[3],label="Centiroids")
+		plt.legend()
 		plt.show()
 
 	def showData(self):
