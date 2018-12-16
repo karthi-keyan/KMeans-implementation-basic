@@ -1,6 +1,5 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
-from sklearn.datasets import load_iris
 from scipy.spatial import distance
 import random
 
@@ -27,7 +26,7 @@ class KMeansClustering:
 				min=self.find_euc(data,cent)
 		return ret
 
-	def find_euc(self,data,centiroid):
+	def find_euc(self,data,centiroid):#function to find the euclidean distance between the points
 		return distance.euclidean(data,centiroid)
 	
 	def fit(self,data,clustersize=3,numiterations=100):#fitting the data
@@ -40,11 +39,11 @@ class KMeansClustering:
 	    		self.clustered_data[i]=[each,cls]
 	    		self.centiroid[cls]=self.find_centiroid(each,self.centiroid[cls])#to update the centiroid value
 		
-	def predict(self,sample):
+	def predict(self,sample):#funtion to predict the point 
 		cls=self.getmincent(sample,True)
 		print("predicted class: ",cls)
 	
-	def showplot(self):#to display the plot
+	def showplot(self):#function to display the plot
 		datapoints=[]
 		colors=['g','b','r','y']
 		for i in range(self.clustersize):
@@ -55,7 +54,7 @@ class KMeansClustering:
 		plt.legend()
 		plt.show()
 
-	def showData(self):
+	def showData(self):#function show the data 
 		print("---------------------CENTIROID------------------------\n")
 		for i in range(self.clustersize):
 			print("centiroid {}: {}\n".format(i,self.centiroid[i]))
@@ -63,10 +62,15 @@ class KMeansClustering:
 		for key,val in self.clustered_data.items():
 			print("{}         {}       {}\n".format(key,val[0],val[1]))
 
-
+#creating the class instance
 Kmeans=KMeansClustering()
+#general data whose classes are not known
 data=np.array([[1,1],[0,1],[2,2],[1,10],[1,11],[1,12],[2,10],[6,6],[7,7],[6,7],[8,8],[7,8],[4,6],[8,2]])
+#fitting th data
 Kmeans.fit(data)
+#to display how the data is classified by the classifier
 Kmeans.showData()
+#to visualize in the form of graph
 Kmeans.showplot()
+#predict the data which is not seen by classifier
 Kmeans.predict([2,8])
